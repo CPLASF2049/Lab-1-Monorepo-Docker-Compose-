@@ -1,4 +1,4 @@
-# lab1-counter — 共享计数器（Monorepo + Docker Compose 多容器应用）
+# Lab1-counter — 共享计数器（Monorepo + Docker Compose 多容器应用）
 
 Lab 1 实验仓库。前端、后端、数据库初始化脚本与 Compose 部署配置全部放在同一个 Git 仓库中，
 执行一次 `docker compose up -d --build` 即可在单台 Docker 主机上启动三个容器组成的多容器应用。
