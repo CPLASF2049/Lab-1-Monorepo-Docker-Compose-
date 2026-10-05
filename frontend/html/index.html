@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>共享计数器 · Lab 1</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <main class="card">
+    <h1>共享计数器</h1>
+    <p class="hint">所有访问者共享数据库中的同一个计数</p>
+
+    <div class="counter">
+      <button id="decrement" type="button" aria-label="减一">−</button>
+      <output id="value" aria-live="polite">…</output>
+      <button id="increment" type="button" aria-label="加一">+</button>
+    </div>
+
+    <p id="status" class="status" role="status"></p>
+    <p class="meta">数据来源：PostgreSQL 容器 <code>db</code> 中的 <code>counter</code> 表</p>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
