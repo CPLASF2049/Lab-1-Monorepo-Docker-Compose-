@@ -1,0 +1,85 @@
+# Lab 1: Monorepo + Docker Compose multi-container application
+#
+# Services
+#   frontend : nginx serving the static counter page and reverse-proxying /api to the backend
+#   backend  : Node.js/Express API, reads and writes the counter in PostgreSQL
+#   db       : PostgreSQL with a named volume for persistent counter data
+#
+# Usage:
+#   cp .env.example .env
+#   docker compose config -q
+#   docker compose up -d --build
+#
+# Do NOT run `docker compose down -v` during validation: it deletes the named
+# volume and with it the persisted counter value.
+
+services:
+  db:
+    # Pinned to the PostgreSQL 17 line on Alpine; never `latest`.
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-counterdb}
+      POSTGRES_USER: ${POSTGRES_USER:-counter}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-counter}
+    volumes:
+      # Named volume: survives `docker compose restart` and `docker compose down`.
+      # /var/lib/postgresql/data is the data directory of the postgres image.
+      - db-data:/var/lib/postgresql/data
+      # First-time initialization. Only runs when the volume is empty.
+      - ./database/init:/docker-entrypoint-initdb.d:ro
+    ports:
+      # Optional host access for a database client (validation queries).
+      - "${DB_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB} -h 127.0.0.1"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+    networks:
+      - counter-net
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: lab1-counter-backend:1.0.0
+    environment:
+      PORT: ${BACKEND_PORT:-3000}
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: ${POSTGRES_DB:-counterdb}
+      DB_USER: ${POSTGRES_USER:-counter}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-counter}
+      DB_CONNECT_RETRIES: ${DB_CONNECT_RETRIES:-30}
+      DB_CONNECT_RETRY_DELAY_MS: ${DB_CONNECT_RETRY_DELAY_MS:-2000}
+    depends_on:
+      # Waits for the database healthcheck, not just for container creation.
+      db:
+        condition: service_healthy
+    networks:
+      - counter-net
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: lab1-counter-frontend:1.0.0
+    depends_on:
+      - backend
+    ports:
+      # Browser entry point: http://localhost:${FRONTEND_PORT}
+      - "${FRONTEND_PORT:-8080}:80"
+    networks:
+      - counter-net
+    restart: unless-stopped
+
+networks:
+  counter-net:
+    driver: bridge
+
+volumes:
+  # Named volume holding the PostgreSQL data directory.
+  db-data:

@@ -1,0 +1,16 @@
+# The images are Linux-based: keep LF in files that are copied into containers or
+# executed there, regardless of the developer's Windows line-ending settings.
+* text=auto
+*.js    text eol=lf
+*.json  text eol=lf
+*.css   text eol=lf
+*.html  text eol=lf
+*.sql   text eol=lf
+*.yml   text eol=lf
+*.yaml  text eol=lf
+*.conf  text eol=lf
+Dockerfile text eol=lf
+*.sh    text eol=lf
+*.ps1   text eol=crlf
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
