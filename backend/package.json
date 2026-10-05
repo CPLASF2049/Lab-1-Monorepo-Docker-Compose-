@@ -1,0 +1,18 @@
+{
+  "name": "lab1-counter-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lab 1 shared counter backend (Express + PostgreSQL)",
+  "license": "MIT",
+  "main": "server.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "pg": "^8.13.1"
+  }
+}
