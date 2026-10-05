@@ -1,0 +1,383 @@
+﻿lab1-counter acceptance evidence - generated 2026-09-28T19:25:16
+
+========================================================================
+== 0. Environment
+========================================================================
+
+PS> git --version
+git version 2.55.0.windows.5
+[exit=0]
+
+PS> docker --version
+Docker version 29.8.0, build 88096ef
+[exit=0]
+
+PS> docker compose version
+Docker Compose version v5.5.1
+[exit=0]
+
+PS> docker info (server)
+29.8.0 / linux / docker-desktop
+[exit=0]
+
+PS> git rev-parse HEAD
+577989f76f8639856e3f8a99bd7bd66869e5b218
+[exit=0]
+
+PS> git rev-parse --abbrev-ref HEAD
+main
+[exit=0]
+
+PS> docker volume ls | findstr lab1 (before)
+
+local     lab1-counter_db-data
+[exit=0]
+db-data CreatedAt (before up): 2026-09-28T11:23:03Z
+
+========================================================================
+== 1. Bring the application up (README 5.1)
+========================================================================
+
+PS> docker compose config -q
+[exit=0]
+
+PS> docker compose up -d --build
+docker :  Image lab1-counter-backend:1.0.0 Building 
+ 
+ Image lab1-counter-frontend:1.0.0 Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.00kB 0.0s done
+#1 DONE 0.0s
+
+#2 [frontend internal] load build definition from Dockerfile
+#2 transferring dockerfile: 453B done
+#2 DONE 0.0s
+
+#3 [backend internal] load build definition from Dockerfile
+#3 transferring dockerfile: 555B done
+#3 DONE 0.0s
+
+#4 [frontend internal] load metadata for docker.io/library/nginx:1.27-alpine
+#4 DONE 0.0s
+
+#5 [backend internal] load metadata for docker.io/library/node:22-alpine
+#5 DONE 0.0s
+
+#6 [frontend internal] load .dockerignore
+#6 transferring context: 58B done
+#6 DONE 0.0s
+
+#7 [backend internal] load .dockerignore
+#7 transferring context: 86B done
+#7 DONE 0.0s
+
+#8 [frontend 1/3] FROM docker.io/library/nginx:1.27-alpine
+#8 DONE 0.0s
+
+#9 [backend 1/5] FROM docker.io/library/node:22-alpine
+#9 DONE 0.0s
+
+#10 [backend internal] load build context
+#10 transferring context: 101B done
+#10 DONE 0.0s
+
+#11 [frontend internal] load build context
+#11 transferring context: 157B done
+#11 DONE 0.0s
+
+#12 [frontend 2/3] COPY nginx.conf /etc/nginx/conf.d/default.conf
+#12 CACHED
+
+#13 [frontend 3/3] COPY html/ /usr/share/nginx/html/
+#13 CACHED
+
+#14 [backend 3/5] COPY package.json package-lock.json ./
+#14 CACHED
+
+#15 [backend 4/5] RUN npm ci --omit=dev && npm cache clean --force
+#15 CACHED
+
+#16 [backend 2/5] WORKDIR /app
+#16 CACHED
+
+#17 [backend 5/5] COPY server.js ./
+#17 CACHED
+
+#18 [backend] exporting to image
+#18 exporting layers done
+#18 writing image sha256:76e481dae2d2f79bbc9400231ec2fbd073327ca7c80c7ccde4c06ef0e58fb477 0.0s done
+#18 naming to docker.io/library/lab1-counter-backend:1.0.0 done
+#18 DONE 0.0s
+
+#19 [frontend] exporting to image
+#19 exporting layers done
+#19 writing image sha256:5680351ed89ff42c26a5e3d5f1184c30b9bcd752020f991b8e662f046c0e6a05 done
+#19 naming to docker.io/library/lab1-counter-frontend:1.0.0 0.0s done
+#19 DONE 0.0s
+
+#20 [backend] resolving provenance for metadata file
+#20 DONE 0.0s
+
+#21 [frontend] resolving provenance for metadata file
+#21 DONE 0.0s
+ Image lab1-counter-backend:1.0.0 Built 
+ Image lab1-counter-frontend:1.0.0 Built 
+ Container lab1-counter-db-1 Running 
+ Container lab1-counter-backend-1 Running 
+ Container lab1-counter-frontend-1 Running 
+ Container lab1-counter-db-1 Waiting 
+ Container lab1-counter-db-1 Healthy
+[exit=0]
+
+PS> docker compose ps -a
+NAME                      IMAGE                         COMMAND                  SERVICE    CREATED          STATUS                    PORTS
+lab1-counter-backend-1    lab1-counter-backend:1.0.0    "docker-entrypoint.s…"   backend    23 seconds ago   Up 16 seconds             3000/tcp
+lab1-counter-db-1         postgres:17-alpine            "docker-entrypoint.s…"   db         23 seconds ago   Up 22 seconds (healthy)   0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp
+lab1-counter-frontend-1   lab1-counter-frontend:1.0.0   "/docker-entrypoint.…"   frontend   23 seconds ago   Up 16 seconds (healthy)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
+[exit=0]
+
+waiting for services to become ready (up to 120s)...
+ready=True (after 2s)
+
+PS> docker compose ps -a (after ready)
+NAME                      IMAGE                         COMMAND                  SERVICE    CREATED          STATUS                    PORTS
+lab1-counter-backend-1    lab1-counter-backend:1.0.0    "docker-entrypoint.s…"   backend    23 seconds ago   Up 16 seconds             3000/tcp
+lab1-counter-db-1         postgres:17-alpine            "docker-entrypoint.s…"   db         23 seconds ago   Up 22 seconds (healthy)   0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp
+lab1-counter-frontend-1   lab1-counter-frontend:1.0.0   "/docker-entrypoint.…"   frontend   23 seconds ago   Up 16 seconds (healthy)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
+[exit=0]
+
+========================================================================
+== 2. Functional checks (README 5.2)
+========================================================================
+[PASS] initial value on first start : value=0
+[PASS] + x3: 0 -> 3 after 3x increment  
+[PASS] - x1 from 3: 3 -> 2 after 1x decrement  
+[PASS] after refresh (new GET) : value=2
+[INFO] open http://localhost:8080 in a second browser / incognito window now: it must show 2 (screenshot this)
+[PASS] - x3 from 2: 2 -> -1 after 3x decrement  
+[PASS] after refresh (negative value) : value=-1
+
+PS> SELECT id, value, updated_at FROM counter
+ id | value |          updated_at           
+----+-------+-------------------------------
+  1 |    -1 | 2026-09-28 11:25:20.589345+00
+(1 row)
+[exit=0]
+db value (expected -1): -1
+
+========================================================================
+== 3. Service restart (README 5.3)
+========================================================================
+
+PS> docker compose restart
+docker :  Container lab1-counter-backend-1 Restarting 
+ 
+ Container lab1-counter-frontend-1 Restarting 
+ Container lab1-counter-db-1 Restarting 
+ Container lab1-counter-backend-1 Started 
+ Container lab1-counter-db-1 Started 
+ Container lab1-counter-frontend-1 Started
+[exit=0]
+
+PS> docker compose ps -a
+NAME                      IMAGE                         COMMAND                  SERVICE    CREATED          STATUS                    PORTS
+lab1-counter-backend-1    lab1-counter-backend:1.0.0    "docker-entrypoint.s…"   backend    35 seconds ago   Up 10 seconds             3000/tcp
+lab1-counter-db-1         postgres:17-alpine            "docker-entrypoint.s…"   db         35 seconds ago   Up 10 seconds (healthy)   0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp
+lab1-counter-frontend-1   lab1-counter-frontend:1.0.0   "/docker-entrypoint.…"   frontend   35 seconds ago   Up 10 seconds (healthy)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
+[exit=0]
+[PASS] after docker compose restart : value=-1
+[PASS] + x1 from -1 (writes after restart): -1 -> 0 after 1x increment  
+
+========================================================================
+== 4. Delete containers and recreate (README 5.4)
+========================================================================
+[PASS] + x7 to reach 7: 0 -> 7 after 7x increment  
+
+PS> docker compose exec db psql (value before down)
+ id | value 
+----+-------
+  1 |     7
+(1 row)
+[exit=0]
+
+PS> docker compose ps -a (before down)
+NAME                      IMAGE                         COMMAND                  SERVICE    CREATED          STATUS                    PORTS
+lab1-counter-backend-1    lab1-counter-backend:1.0.0    "docker-entrypoint.s…"   backend    36 seconds ago   Up 11 seconds             3000/tcp
+lab1-counter-db-1         postgres:17-alpine            "docker-entrypoint.s…"   db         36 seconds ago   Up 11 seconds (healthy)   0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp
+lab1-counter-frontend-1   lab1-counter-frontend:1.0.0   "/docker-entrypoint.…"   frontend   36 seconds ago   Up 11 seconds (healthy)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
+[exit=0]
+
+PS> docker compose down
+docker :  Container lab1-counter-frontend-1 Stopping 
+ 
+ Container lab1-counter-frontend-1 Stopped 
+ Container lab1-counter-frontend-1 Removing 
+ Container lab1-counter-frontend-1 Removed 
+ Container lab1-counter-backend-1 Stopping 
+ Container lab1-counter-backend-1 Stopped 
+ Container lab1-counter-backend-1 Removing 
+ Container lab1-counter-backend-1 Removed 
+ Container lab1-counter-db-1 Stopping 
+ Container lab1-counter-db-1 Stopped 
+ Container lab1-counter-db-1 Removing 
+ Container lab1-counter-db-1 Removed 
+ Network lab1-counter_counter-net Removing 
+ Network lab1-counter_counter-net Removed
+[exit=0]
+
+PS> docker compose ps -a (after down, containers must be gone)
+NAME      IMAGE     COMMAND   SERVICE   CREATED   STATUS    PORTS
+[exit=0]
+
+PS> docker volume ls | findstr lab1 (after down, volume must remain)
+
+local     lab1-counter_db-data
+[exit=0]
+db-data CreatedAt (after down): 2026-09-28T11:23:03Z
+[PASS] named volume preserved across docker compose down
+
+PS> docker compose up -d --build (recreate)
+docker :  Image lab1-counter-backend:1.0.0 Building 
+ 
+ Image lab1-counter-frontend:1.0.0 Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.00kB done
+#1 DONE 0.0s
+
+#2 [backend internal] load build definition from Dockerfile
+#2 transferring dockerfile: 555B 0.0s done
+#2 DONE 0.0s
+
+#3 [backend internal] load metadata for docker.io/library/node:22-alpine
+#3 DONE 0.0s
+
+#4 [frontend internal] load build definition from Dockerfile
+#4 transferring dockerfile: 453B 0.0s done
+#4 DONE 0.0s
+
+#5 [frontend internal] load metadata for docker.io/library/nginx:1.27-alpine
+#5 DONE 0.0s
+
+#6 [backend internal] load .dockerignore
+#6 transferring context: 86B done
+#6 DONE 0.0s
+
+#7 [frontend internal] load .dockerignore
+#7 transferring context: 58B done
+#7 DONE 0.0s
+
+#8 [backend 1/5] FROM docker.io/library/node:22-alpine
+#8 DONE 0.0s
+
+#9 [backend internal] load build context
+#9 transferring context: 101B done
+#9 DONE 0.0s
+
+#10 [frontend 1/3] FROM docker.io/library/nginx:1.27-alpine
+#10 DONE 0.0s
+
+#11 [frontend internal] load build context
+#11 transferring context: 157B done
+#11 DONE 0.0s
+
+#12 [backend 3/5] COPY package.json package-lock.json ./
+#12 CACHED
+
+#13 [backend 2/5] WORKDIR /app
+#13 CACHED
+
+#14 [backend 4/5] RUN npm ci --omit=dev && npm cache clean --force
+#14 CACHED
+
+#15 [backend 5/5] COPY server.js ./
+#15 CACHED
+
+#16 [frontend 2/3] COPY nginx.conf /etc/nginx/conf.d/default.conf
+#16 CACHED
+
+#17 [frontend 3/3] COPY html/ /usr/share/nginx/html/
+#17 CACHED
+
+#18 [frontend] exporting to image
+#18 exporting layers done
+#18 writing image sha256:5680351ed89ff42c26a5e3d5f1184c30b9bcd752020f991b8e662f046c0e6a05 0.0s done
+#18 naming to docker.io/library/lab1-counter-frontend:1.0.0 done
+#18 DONE 0.0s
+
+#19 [backend] exporting to image
+#19 exporting layers done
+#19 writing image sha256:76e481dae2d2f79bbc9400231ec2fbd073327ca7c80c7ccde4c06ef0e58fb477 done
+#19 naming to docker.io/library/lab1-counter-backend:1.0.0 0.0s done
+#19 DONE 0.0s
+
+#20 [frontend] resolving provenance for metadata file
+#20 DONE 0.0s
+
+#21 [backend] resolving provenance for metadata file
+#21 DONE 0.0s
+ Image lab1-counter-backend:1.0.0 Built 
+ Image lab1-counter-frontend:1.0.0 Built 
+ Network lab1-counter_counter-net Creating 
+ Network lab1-counter_counter-net Creating 
+ Network lab1-counter_counter-net Created 
+ Network lab1-counter_counter-net Created 
+ Container lab1-counter-db-1 Creating 
+ Container lab1-counter-db-1 Created 
+ Container lab1-counter-backend-1 Creating 
+ Container lab1-counter-backend-1 Created 
+ Container lab1-counter-frontend-1 Creating 
+ Container lab1-counter-frontend-1 Created 
+ Container lab1-counter-db-1 Starting 
+ Container lab1-counter-db-1 Started 
+ Container lab1-counter-db-1 Waiting 
+ Container lab1-counter-db-1 Healthy 
+ Container lab1-counter-backend-1 Starting 
+ Container lab1-counter-backend-1 Started 
+ Container lab1-counter-frontend-1 Starting 
+ Container lab1-counter-frontend-1 Started
+[exit=0]
+
+PS> docker compose ps -a (after recreate)
+NAME                      IMAGE                         COMMAND                  SERVICE    CREATED         STATUS                                     PORTS
+lab1-counter-backend-1    lab1-counter-backend:1.0.0    "docker-entrypoint.s…"   backend    7 seconds ago   Up Less than a second                      3000/tcp
+lab1-counter-db-1         postgres:17-alpine            "docker-entrypoint.s…"   db         7 seconds ago   Up 6 seconds (healthy)                     0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp
+lab1-counter-frontend-1   lab1-counter-frontend:1.0.0   "/docker-entrypoint.…"   frontend   7 seconds ago   Up Less than a second (health: starting)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
+[exit=0]
+ready after recreate=True
+[PASS] after container recreation : value=7
+db value after recreation (expected 7): 7
+[PASS] -1 after recreation: 7 -> 6 after 1x decrement  
+[PASS] after refresh (new GET, expected 6) : value=6
+
+PS> SELECT id, value FROM counter (final)
+ id | value |          updated_at           
+----+-------+-------------------------------
+  1 |     6 | 2026-09-28 11:25:43.351205+00
+(1 row)
+[exit=0]
+db value final (expected 6): 6
+
+========================================================================
+== 5. Container status summary
+========================================================================
+
+PS> docker compose ps -a (final)
+NAME                      IMAGE                         COMMAND                  SERVICE    CREATED         STATUS                           PORTS
+lab1-counter-backend-1    lab1-counter-backend:1.0.0    "docker-entrypoint.s…"   backend    8 seconds ago   Up 1 second                      3000/tcp
+lab1-counter-db-1         postgres:17-alpine            "docker-entrypoint.s…"   db         8 seconds ago   Up 7 seconds (healthy)           0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp
+lab1-counter-frontend-1   lab1-counter-frontend:1.0.0   "/docker-entrypoint.…"   frontend   8 seconds ago   Up 1 second (health: starting)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
+[exit=0]
+
+PS> docker compose images
+CONTAINER                 REPOSITORY              TAG                 PLATFORM            IMAGE ID            SIZE                CREATED
+lab1-counter-backend-1    lab1-counter-backend    1.0.0               linux/amd64         76e481dae2d2        172MB               2 minutes ago
+lab1-counter-db-1         postgres                17-alpine           linux/amd64         79bd7c99e923        297MB               10 days ago
+lab1-counter-frontend-1   lab1-counter-frontend   1.0.0               linux/amd64         5680351ed89f        48.2MB              2 minutes ago
+[exit=0]
+
+========================================================================
+== RESULT
+========================================================================
+ALL CHECKS PASSED
+Evidence written to E:\desktop\lab1-counter\docs\acceptance-evidence.txt
+Still to add manually: screenshots (docs/images/) and CodeArts project evidence.
