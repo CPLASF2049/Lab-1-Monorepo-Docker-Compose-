@@ -1,0 +1,51 @@
+﻿**********************
+Windows PowerShell 脚本开始
+开始时间: 20261005192637
+用户名: LAPTOP-GEKU9GBJ\86137
+RunAs 用户: LAPTOP-GEKU9GBJ\86137
+配置名称: 
+计算机: LAPTOP-GEKU9GBJ (Microsoft Windows NT 10.0.19045.0)
+主机应用程序: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:/Users/86137/Desktop/lab1验收/lab1-counter/docs/evidence/enable-platform.ps1
+进程 ID: 15688
+PSVersion: 5.1.19041.6456
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.19041.6456
+BuildVersion: 10.0.19041.6456
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+已启动脚本，输出文件为 C:\Users\86137\Desktop\lab1验收\lab1-counter\docs\evidence\windows-platform-setup.txt
+
+2026年10月5日 19:26:37
+
+Caption        : Microsoft Windows 10 专业版
+Version        : 10.0.19045
+OSArchitecture : 64 位
+
+
+HypervisorPresent : True
+
+
+Name                                    : 11th Gen Intel(R) Core(TM) i7-1160G7 @ 1.20GHz
+VirtualizationFirmwareEnabled           : False
+SecondLevelAddressTranslationExtensions : False
+
+
+FeatureName : VirtualMachinePlatform
+State       : Disabled
+
+警告: 由于指定了 NoRestart，禁止重新启动。
+
+Path   :
+Online : True
+
+
+FeatureName : VirtualMachinePlatform
+State       : Enabled
+
+**********************
+Windows PowerShell 脚本结束
+结束时间: 20261005192649
+**********************
