@@ -10,15 +10,22 @@ Lab 1 实验仓库。前端、后端、数据库初始化脚本与 Compose 部�
 
 ## 1. 小组成员与分工
 
-> 提交前请把下表替换为本组真实信息（评分项「CodeArts 与小组协作」需要）。
+CodeArts 项目名称：`lab1-counter`。代码开发主要由李思源承担，陈星岩主要负责项目管理、验收和作业提交材料。
 
-| 角色 | 姓名 | 学号 | Git 身份（user.name） | 实际分工 |
-| --- | --- | --- | --- | --- |
-| 组长 | 待填写 | 待填写 | 待填写 | Compose 与数据卷、持久化验收、仓库汇总 |
-| 组员 | 待填写 | 待填写 | 待填写 | 后端 API 与数据库初始化、前端页面与 nginx 反向代理 |
-|
+| 成员 | Git 身份 | 主要职责与实际分工 |
+| --- | --- | --- |
+| 陈星岩 | Git author：`陈星岩`；提交邮箱：`26113050014@m.fudan.edu.cn` | 验收与提交：Lab 任务拆解、CodeArts 项目管理、新环境完整验收、代码勘正与细化、验收证据整理及提交材料汇总 |
+| 李思源 | GitHub：`CPLASF2049`；Git author：`fdu-lsy`；提交邮箱：`117495959+CPLASF2049@users.noreply.github.com` | 代码开发：Monorepo 仓库代码构筑、共享计数器完整功能实现、前后端 API 与 nginx 反向代理联调、Docker Compose 容器化部署及 PostgreSQL 初始化与持久化实现 |
 
-联系助教：待填写　|　CodeArts 项目：`2026高级软件工程_第X小组`　|　代码仓库：`lab1-counter`
+成员与助教加入证据：
+
+![CodeArts 成员管理](docs/images/windows-validation/10-codearts-members.png)
+
+截图显示组员、助教加入项目及项目角色，用于成员加入证明
+
+代码提交记录：`fdu-lsy` 的 `3dc3d54`（后端）、`c2b1bf2`（前端）、`4e2c448`（Compose）、`e5023fd`（数据库初始化）对应李思源负责的代码开发。陈星岩的本轮验收结果与材料见 [验收记录](docs/validation.md)。
+
+本次验收因 CodeArts 实名认证通过后仍无法设置 SSH 密钥、无法完成仓库克隆，改用 GitHub 仓库。陈星岩确认两仓库所有文件相同；本次固定验收版本为 `6d4afbc97c109abff93978f7da29f54ff9a522bf`。本轮新增的分工和验收材料是验收后的文档更新。
 
 ## 2. 技术栈与目录结构
 
@@ -34,7 +41,7 @@ Lab 1 实验仓库。前端、后端、数据库初始化脚本与 Compose 部�
 ```text
 lab1-counter/
 ├── frontend/
-│   ├── Dockerfile            # 基于 nginx:1.27.4-alpine 构建
+│   ├── Dockerfile            # 基于 nginx:1.27-alpine 构建
 │   ├── .dockerignore
 │   ├── nginx.conf            # 静态页面 + /api 反向代理到 backend:3000
 │   └── html/
@@ -52,7 +59,8 @@ lab1-counter/
 │       └── 01-init-counter.sql   # 首次初始化（仅空数据目录时执行）
 ├── docs/
 │   ├── validation.md         # 验收过程、结果与证据说明
-│   └── images/               # 验收截图（待补充）
+│   ├── images/               # 计数器与成员管理截图
+│   └── evidence/             # 服务状态、SQL、容器 ID 和数据卷验收日志
 ├── compose.yaml              # 三个服务、网络与命名数据卷
 ├── .env.example              # 环境变量示例
 ├── .gitignore
@@ -91,6 +99,9 @@ JavaScript 也无法解析 `backend` 这个服务名，因此页面请求同源�
 宿主机**不需要**安装 Node.js、nginx 或 PostgreSQL：前后端依赖在镜像构建时安装，
 数据库使用官方镜像。
 
+Windows 使用 Docker Desktop 的 Linux 容器模式，并启用硬件虚拟化和 WSL 2。启动前确认
+`docker info` 能连接 Docker Engine，且宿主机端口 8080、5432 可用；首次构建需能访问 Docker Hub 和 npm 包源。
+
 ## 5. 环境变量说明
 
 复制示例文件后按需修改（默认值可直接使用）：
@@ -102,7 +113,7 @@ cp .env.example .env
 | 变量 | 默认值 | 作用 |
 | --- | --- | --- |
 | `FRONTEND_PORT` | `8080` | 前端发布到宿主机的端口，即浏览器访问端口 |
-| `BACKEND_PORT` | `3000` | 后端容器内监听端口（不发布到宿主机） |
+| `BACKEND_PORT` | `3000` | 后端容器内监听端口（不发布到宿主机）。nginx 上游固定为 `backend:3000`，应保持默认；修改时必须同步修改 `frontend/nginx.conf` 并重新构建 |
 | `DB_PORT` | `5432` | 数据库发布到宿主机的端口，供数据库客户端查询；若本机已装 PostgreSQL 造成端口占用，改成如 `55432` |
 | `POSTGRES_DB` | `counterdb` | 数据库名 |
 | `POSTGRES_USER` | `counter` | 数据库用户 |
@@ -115,7 +126,20 @@ cp .env.example .env
 
 ## 6. 启动、停止与访问地址
 
-在仓库根目录执行：
+首次在新环境中执行以下完整命令（目标目录尚不存在时）：
+
+```powershell
+git clone https://github.com/CPLASF2049/Lab-1-Monorepo-Docker-Compose-.git lab1-counter
+cd lab1-counter
+Copy-Item .env.example .env
+docker compose config -q
+docker compose up -d --build
+docker compose ps -a
+```
+
+Linux/macOS 使用相同命令，将 `Copy-Item .env.example .env` 换成 `cp .env.example .env`。
+已有仓库和 `.env` 时直接进入仓库根目录，保留现有环境配置；不要覆盖已有 `.env`。
+以下分步命令用于首次启动和诊断：
 
 ```bash
 # 1. 准备环境变量
@@ -127,7 +151,7 @@ docker compose config -q
 # 3. 构建镜像并启动全部服务
 docker compose up -d --build
 
-# 4. 查看服务状态（三个服务都应为 running / healthy）
+# 4. 三个服务均应为 Up；frontend、db 应为 healthy，backend 未配置 healthcheck
 docker compose ps -a
 
 # 5. 查看日志
@@ -140,6 +164,8 @@ docker compose logs -f backend
 
 ```bash
 docker compose restart          # 重启容器，数据保留
+docker compose stop             # 仅停止容器，保留容器、网络和数据卷
+docker compose start            # 启动 stop 停止的已有容器
 docker compose down             # 删除容器和网络，保留命名数据卷 db-data
 docker compose up -d --build    # 重新创建容器，数据仍然保留
 docker compose down -v          # ⚠️ 删除命名数据卷，计数数据会被清空（持久化验收时禁止执行）
@@ -166,6 +192,10 @@ curl -X POST http://localhost:8080/api/counter/increment
 curl -X POST http://localhost:8080/api/counter/decrement
 ```
 
+Windows PowerShell 中使用 `curl.exe` 替代 `curl`，避免旧版 PowerShell 的同名别名影响参数解析。
+加减接口不需要请求体，每次请求固定加 1 或减 1。访问 `http://localhost:8080/healthz` 得到的是
+前端 nginx 的纯文本 `ok`；表中的 JSON `/healthz` 是后端容器内端点。
+
 ## 8. 数据库表结构与查询命令
 
 ```sql
@@ -188,6 +218,9 @@ ON CONFLICT (id) DO NOTHING;                 -- 仅在缺失时初始化为 0，
 ```bash
 docker compose exec db psql -U counter -d counterdb -c "SELECT id, value, updated_at FROM counter;"
 ```
+
+上述命令采用示例配置；若修改了 `.env`，将 `-U counter` 和 `-d counterdb` 替换为实际的
+`POSTGRES_USER` 和 `POSTGRES_DB`。已有 `.env` 时无需再次复制。
 
 只取值：
 
@@ -219,8 +252,8 @@ docker compose exec -T db psql -U counter -d counterdb -tAc "SELECT value FROM c
 | 现象 | 原因与处理 |
 | --- | --- |
 | `docker compose up` 报端口占用 `bind: address already in use` | 宿主机 8080/5432 已被占用。改 `.env` 中的 `FRONTEND_PORT` / `DB_PORT`，再 `docker compose up -d`。查看占用：`netstat -ano \| findstr :8080` |
-| 后端日志反复出现 `[db] attempt n/30 failed` | 数据库尚未就绪或密码不一致。确认 `db` 服务 `healthy`：`docker compose ps`；确认 `.env` 中 `POSTGRES_USER/PASSWORD` 与后端使用的值一致。后端自带连接重试，数据库就绪后会自动恢复 |
-| `pg_isready` 健康检查一直不通过 | 若曾用旧参数初始化过数据卷，容器内数据库凭据与 `.env` 不一致。开发阶段可 `docker compose down -v` 重建（会清空计数数据），正式验收环境不要这样做 |
+| 后端日志反复出现 `[db] attempt n/30 failed` | 先运行 `docker compose ps -a` 和 `docker compose logs --tail 100 db backend`。数据库可能尚未就绪，或后端凭据与已有数据库不一致。已有数据卷不会因修改 `.env` 自动改密码，应恢复初始化时的凭据。后端自带重试；修正配置后执行 `docker compose up -d`，必要时 `docker compose restart backend` |
+| `pg_isready` 健康检查一直不通过 | 查看 `docker compose logs --tail 100 db`，排查数据库启动、磁盘空间和数据目录问题。`pg_isready` 检查服务是否接受连接，不能代替账号密码验证；使用第 8 节 SQL 命令进一步检查。持久化验收时不要删除卷来排错 |
 | 页面显示「读取失败」或计数不动 | 后端或数据库不可用。先看 `docker compose logs backend`，再访问 `http://localhost:8080/api/health` 确认数据库连通性 |
 | 镜像拉取失败 / 超时（`dial tcp … timeout`） | 网络无法访问 Docker Hub。配置镜像加速器或代理后重试；`docker compose up -d --build` 可重复执行 |
 | 页面能打开但 `/api/...` 返回 502 | 后端容器未就绪或已退出。`docker compose ps -a` 查看状态，`docker compose logs backend` 查看原因 |

@@ -1,0 +1,4 @@
+NAME                      IMAGE                         COMMAND                  SERVICE    CREATED              STATUS                        PORTS
+lab1-counter-backend-1    lab1-counter-backend:1.0.0    "docker-entrypoint.s…"   backend    About a minute ago   Up About a minute             3000/tcp
+lab1-counter-db-1         postgres:17-alpine            "docker-entrypoint.s…"   db         About a minute ago   Up About a minute (healthy)   0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp
+lab1-counter-frontend-1   lab1-counter-frontend:1.0.0   "/docker-entrypoint.…"   frontend   About a minute ago   Up About a minute (healthy)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp

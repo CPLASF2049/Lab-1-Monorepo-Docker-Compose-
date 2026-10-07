@@ -1,0 +1,295 @@
+**********************
+PowerShell transcript start
+Start time: 20261006002805
+Username: LAPTOP-GEKU9GBJ\86137
+RunAs User: LAPTOP-GEKU9GBJ\86137
+Configuration Name: 
+Machine: LAPTOP-GEKU9GBJ (Microsoft Windows NT 10.0.19045.0)
+Host Application: C:\Users\86137\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell\pwsh.dll -Command try { [Console]::OutputEncoding=[System.Text.Encoding]::UTF8 } catch {}
+$env:PATH = 'C:/Users/86137/AppData/Local/Programs/DockerDesktop/resources/bin;' + $env:PATH; Start-Transcript -Path docs/evidence/windows-validation-20261006.txt -Append; Get-Date; docker info --format '{{.ServerVersion}} / {{.OSType}}'; docker volume ls --filter name=lab1-counter_db-data; docker compose config -q; Write-Output "Config exit: $LASTEXITCODE"; Stop-Transcript
+Process ID: 11300
+PSVersion: 7.6.5
+PSEdition: Core
+GitCommitId: 7.6.5
+OS: Microsoft Windows 10.0.19045
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+Transcript started, output file is docs/evidence/windows-validation-20261006.txt
+
+2026年10月6日 0:28:05
+
+
+
+Config exit: 0
+**********************
+PowerShell transcript end
+End time: 20261006002808
+**********************
+**********************
+PowerShell transcript start
+Start time: 20261006002832
+Username: LAPTOP-GEKU9GBJ\86137
+RunAs User: LAPTOP-GEKU9GBJ\86137
+Configuration Name: 
+Machine: LAPTOP-GEKU9GBJ (Microsoft Windows NT 10.0.19045.0)
+Host Application: C:\Users\86137\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell\pwsh.dll -Command try { [Console]::OutputEncoding=[System.Text.Encoding]::UTF8 } catch {}
+$env:PATH = 'C:/Users/86137/AppData/Local/Programs/DockerDesktop/resources/bin;' + $env:PATH; Start-Transcript -Path docs/evidence/windows-validation-20261006.txt -Append; docker compose up -d --build; $buildExit = $LASTEXITCODE; Write-Output "Build exit: $buildExit"; if ($buildExit -eq 0) { docker compose ps -a }; Stop-Transcript; exit $buildExit
+Process ID: 29592
+PSVersion: 7.6.5
+PSEdition: Core
+GitCommitId: 7.6.5
+OS: Microsoft Windows 10.0.19045
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+Transcript started, output file is docs/evidence/windows-validation-20261006.txt
+
+Build exit: 1
+**********************
+PowerShell transcript end
+End time: 20261006002927
+**********************
+**********************
+PowerShell transcript start
+Start time: 20261006003000
+Username: LAPTOP-GEKU9GBJ\86137
+RunAs User: LAPTOP-GEKU9GBJ\86137
+Configuration Name: 
+Machine: LAPTOP-GEKU9GBJ (Microsoft Windows NT 10.0.19045.0)
+Host Application: C:\Users\86137\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell\pwsh.dll -Command try { [Console]::OutputEncoding=[System.Text.Encoding]::UTF8 } catch {}
+$env:PATH = 'C:/Users/86137/AppData/Local/Programs/DockerDesktop/resources/bin;' + $env:PATH; Start-Transcript -Path docs/evidence/windows-validation-20261006.txt -Append; docker pull node:22-alpine; $nodeExit=$LASTEXITCODE; docker pull nginx:1.27-alpine; $nginxExit=$LASTEXITCODE; Write-Output "Pull exit codes: node=$nodeExit nginx=$nginxExit"; Stop-Transcript
+Process ID: 27020
+PSVersion: 7.6.5
+PSEdition: Core
+GitCommitId: 7.6.5
+OS: Microsoft Windows 10.0.19045
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+Transcript started, output file is docs/evidence/windows-validation-20261006.txt
+
+
+Pull exit codes: node=0 nginx=0
+**********************
+PowerShell transcript end
+End time: 20261006003035
+**********************
+**********************
+PowerShell transcript start
+Start time: 20261006003141
+Username: LAPTOP-GEKU9GBJ\86137
+RunAs User: LAPTOP-GEKU9GBJ\86137
+Configuration Name: 
+Machine: LAPTOP-GEKU9GBJ (Microsoft Windows NT 10.0.19045.0)
+Host Application: C:\Users\86137\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell\pwsh.dll -Command try { [Console]::OutputEncoding=[System.Text.Encoding]::UTF8 } catch {}
+$env:PATH = 'C:/Users/86137/AppData/Local/Programs/DockerDesktop/resources/bin;' + $env:PATH; Start-Transcript -Path docs/evidence/windows-validation-20261006.txt -Append; docker compose up -d --build; $buildExit = $LASTEXITCODE; Write-Output "Build exit: $buildExit"; if ($buildExit -eq 0) { docker compose ps -a }; Stop-Transcript; exit $buildExit
+Process ID: 29552
+PSVersion: 7.6.5
+PSEdition: Core
+GitCommitId: 7.6.5
+OS: Microsoft Windows 10.0.19045
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+Transcript started, output file is docs/evidence/windows-validation-20261006.txt
+
+Build exit: 0
+
+**********************
+PowerShell transcript end
+End time: 20261006003202
+**********************
+**********************
+PowerShell transcript start
+Start time: 20261006003323
+Username: LAPTOP-GEKU9GBJ\86137
+RunAs User: LAPTOP-GEKU9GBJ\86137
+Configuration Name: 
+Machine: LAPTOP-GEKU9GBJ (Microsoft Windows NT 10.0.19045.0)
+Host Application: C:\Users\86137\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell\pwsh.dll -Command try { [Console]::OutputEncoding=[System.Text.Encoding]::UTF8 } catch {}
+$env:PATH = 'C:/Users/86137/AppData/Local/Programs/DockerDesktop/resources/bin;' + $env:PATH; Start-Transcript -Path docs/evidence/windows-validation-20261006.txt -Append; docker compose ps -a | Tee-Object -FilePath docs/evidence/01-services.txt; Stop-Transcript
+Process ID: 28872
+PSVersion: 7.6.5
+PSEdition: Core
+GitCommitId: 7.6.5
+OS: Microsoft Windows 10.0.19045
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+Transcript started, output file is docs/evidence/windows-validation-20261006.txt
+NAME                      IMAGE                         COMMAND                  SERVICE    CREATED              STATUS                        PORTS
+lab1-counter-backend-1    lab1-counter-backend:1.0.0    "docker-entrypoint.s…"   backend    About a minute ago   Up About a minute             3000/tcp
+lab1-counter-db-1         postgres:17-alpine            "docker-entrypoint.s…"   db         About a minute ago   Up About a minute (healthy)   0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp
+lab1-counter-frontend-1   lab1-counter-frontend:1.0.0   "/docker-entrypoint.…"   frontend   About a minute ago   Up About a minute (healthy)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
+**********************
+PowerShell transcript end
+End time: 20261006003323
+**********************
+**********************
+PowerShell transcript start
+Start time: 20261006112746
+Username: LAPTOP-GEKU9GBJ\86137
+RunAs User: LAPTOP-GEKU9GBJ\86137
+Configuration Name: 
+Machine: LAPTOP-GEKU9GBJ (Microsoft Windows NT 10.0.19045.0)
+Host Application: C:\Users\86137\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell\pwsh.dll -Command try { [Console]::OutputEncoding=[System.Text.Encoding]::UTF8 } catch {}
+$env:PATH='C:/Users/86137/AppData/Local/Programs/DockerDesktop/resources/bin;'+$env:PATH; Start-Transcript -Path docs/evidence/windows-validation-20261006.txt -Append; Get-Date; Write-Output '5.2 User confirmed Edge InPrivate displays 2. Browser decrement x3 and reload displays -1.'; docker compose exec -T db psql -U counter -d counterdb -c 'SELECT id, value, updated_at FROM counter;' | Tee-Object docs/evidence/03-db-negative.txt; if ($LASTEXITCODE -ne 0) { Stop-Transcript; exit 1 }; docker compose restart; $restartExit=$LASTEXITCODE; docker compose ps -a; Stop-Transcript; exit $restartExit
+Process ID: 30816
+PSVersion: 7.6.5
+PSEdition: Core
+GitCommitId: 7.6.5
+OS: Microsoft Windows 10.0.19045
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+Transcript started, output file is docs/evidence/windows-validation-20261006.txt
+
+2026年10月6日 11:27:46
+5.2 User confirmed Edge InPrivate displays 2. Browser decrement x3 and reload displays -1.
+ id | value |          updated_at
+----+-------+-------------------------------
+  1 |    -1 | 2026-10-06 03:27:26.677977+00
+(1 row)
+
+
+
+**********************
+PowerShell transcript end
+End time: 20261006112748
+**********************
+**********************
+PowerShell transcript start
+Start time: 20261006112837
+Username: LAPTOP-GEKU9GBJ\86137
+RunAs User: LAPTOP-GEKU9GBJ\86137
+Configuration Name: 
+Machine: LAPTOP-GEKU9GBJ (Microsoft Windows NT 10.0.19045.0)
+Host Application: C:\Users\86137\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell\pwsh.dll -Command try { [Console]::OutputEncoding=[System.Text.Encoding]::UTF8 } catch {}
+$env:PATH='C:/Users/86137/AppData/Local/Programs/DockerDesktop/resources/bin;'+$env:PATH; Start-Transcript -Path docs/evidence/windows-validation-20261006.txt -Append; docker compose exec -T db psql -U counter -d counterdb -c 'SELECT id, value, updated_at FROM counter;' | Tee-Object docs/evidence/06-db-before.txt; $dbValue=docker compose exec -T db psql -U counter -d counterdb -tAc 'SELECT value FROM counter WHERE id=1;'; if ($LASTEXITCODE -ne 0 -or "$dbValue".Trim() -ne '7') { Stop-Transcript; throw 'Expected database value 7 before down' }; docker compose ps -a; docker compose ps -a -q | Tee-Object docs/evidence/windows-before-ids.txt; docker volume inspect lab1-counter_db-data --format '{{.Name}} {{.CreatedAt}}' | Tee-Object docs/evidence/volume-before.txt; docker compose down; if ($LASTEXITCODE -ne 0) { Stop-Transcript; exit 1 }; docker compose ps -a | Tee-Object docs/evidence/07-after-down.txt; $remaining=@(docker compose ps -a -q); if ($LASTEXITCODE -ne 0 -or $remaining.Count -ne 0) { Stop-Transcript; throw 'Containers still present' }; docker volume inspect lab1-counter_db-data --format '{{.Name}} {{.CreatedAt}}' | Tee-Object docs/evidence/volume-after-down.txt; if ($LASTEXITCODE -ne 0) { Stop-Transcript; exit 1 }; if ((Get-Content docs/evidence/volume-before.txt -Raw) -ne (Get-Content docs/evidence/volume-after-down.txt -Raw)) { Stop-Transcript; throw 'Volume changed' }; Write-Output 'PASS: project containers removed; named volume identity and creation time preserved'; Stop-Transcript
+Process ID: 26984
+PSVersion: 7.6.5
+PSEdition: Core
+GitCommitId: 7.6.5
+OS: Microsoft Windows 10.0.19045
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+Transcript started, output file is docs/evidence/windows-validation-20261006.txt
+ id | value |          updated_at
+----+-------+-------------------------------
+  1 |     7 | 2026-10-06 03:28:14.340764+00
+(1 row)
+
+
+5e2fa9b3e1eb158aaf21c01da8b66a37fc6a0727973b77772ae3d02d0a31ca06
+30b7247828b8d3d8a759ddd1c509f45d8b825d9d33e9dd0036b2dfce39f85fbd
+8724fdab1ce4b0110440546ac39098a91e6284ba88fbb0b9bfdef5d9f0d6d1c9
+lab1-counter_db-data 2026-10-05T16:31:55Z
+
+NAME      IMAGE     COMMAND   SERVICE   CREATED   STATUS    PORTS
+lab1-counter_db-data 2026-10-05T16:31:55Z
+PASS: project containers removed; named volume identity and creation time preserved
+**********************
+PowerShell transcript end
+End time: 20261006112840
+**********************
+**********************
+PowerShell transcript start
+Start time: 20261006112859
+Username: LAPTOP-GEKU9GBJ\86137
+RunAs User: LAPTOP-GEKU9GBJ\86137
+Configuration Name: 
+Machine: LAPTOP-GEKU9GBJ (Microsoft Windows NT 10.0.19045.0)
+Host Application: C:\Users\86137\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell\pwsh.dll -Command try { [Console]::OutputEncoding=[System.Text.Encoding]::UTF8 } catch {}
+$env:PATH='C:/Users/86137/AppData/Local/Programs/DockerDesktop/resources/bin;'+$env:PATH; Start-Transcript -Path docs/evidence/windows-validation-20261006.txt -Append; docker compose up -d --build; if ($LASTEXITCODE -ne 0) { Stop-Transcript; exit 1 }; docker compose ps -a; $afterIds=@(docker compose ps -a -q); $afterIds | Tee-Object docs/evidence/windows-after-ids.txt; $beforeIds=@(Get-Content docs/evidence/windows-before-ids.txt); if ($afterIds.Count -ne 3 -or @($afterIds | Where-Object {$_ -in $beforeIds}).Count -gt 0) { Stop-Transcript; throw 'Container ID comparison failed' }; Write-Output 'PASS: all three container IDs changed'; docker compose exec -T db psql -U counter -d counterdb -c 'SELECT id, value, updated_at FROM counter;' | Tee-Object docs/evidence/08-db-recreated.txt; Stop-Transcript
+Process ID: 3796
+PSVersion: 7.6.5
+PSEdition: Core
+GitCommitId: 7.6.5
+OS: Microsoft Windows 10.0.19045
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+Transcript started, output file is docs/evidence/windows-validation-20261006.txt
+
+
+07082f80e8c91c95e028d21f48b31ffc4835f2df73f72d09843fd7e9f9c5b172
+165df03759ebda4c5126dbbadbeb270bf15db5b1efc3a06fa0d7d38bbeae8254
+4028ba8ea7fa82303c4997361d452e583f1e1a2d5909c6f1b6de46442c249d01
+PASS: all three container IDs changed
+ id | value |          updated_at
+----+-------+-------------------------------
+  1 |     7 | 2026-10-06 03:28:14.340764+00
+(1 row)
+
+**********************
+PowerShell transcript end
+End time: 20261006112910
+**********************
+**********************
+PowerShell transcript start
+Start time: 20261006113730
+Username: LAPTOP-GEKU9GBJ\86137
+RunAs User: LAPTOP-GEKU9GBJ\86137
+Configuration Name: 
+Machine: LAPTOP-GEKU9GBJ (Microsoft Windows NT 10.0.19045.0)
+Host Application: C:\Users\86137\.cache\codex-runtimes\codex-primary-runtime\dependencies\native\powershell\pwsh.dll -Command try { [Console]::OutputEncoding=[System.Text.Encoding]::UTF8 } catch {}
+$env:PATH='C:/Users/86137/AppData/Local/Programs/DockerDesktop/resources/bin;'+$env:PATH; Start-Transcript -Path docs/evidence/windows-validation-20261006.txt -Append; Get-Date; Write-Output 'User confirmed new Edge InPrivate window displays 7 after container recreation.'; Write-Output 'Browser decrement x1 and reload: 6.'; docker compose exec -T db psql -U counter -d counterdb -c 'SELECT id, value, updated_at FROM counter;' | Tee-Object docs/evidence/09-db-final.txt; if ($LASTEXITCODE -ne 0) { Stop-Transcript; exit 1 }; $finalValue=docker compose exec -T db psql -U counter -d counterdb -tAc 'SELECT value FROM counter WHERE id=1;'; if ($LASTEXITCODE -ne 0 -or "$finalValue".Trim() -ne '6') { Stop-Transcript; throw 'Expected final database value 6' }; docker compose ps -a | Tee-Object docs/evidence/10-final-services.txt; docker volume inspect lab1-counter_db-data --format '{{.Name}} {{.CreatedAt}}'; Write-Output 'PASS: final browser refresh and database both equal 6. Functional acceptance 5.1-5.4 complete; independent InPrivate checks confirmed by user.'; git rev-parse HEAD; git diff --exit-code; Stop-Transcript
+Process ID: 31396
+PSVersion: 7.6.5
+PSEdition: Core
+GitCommitId: 7.6.5
+OS: Microsoft Windows 10.0.19045
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+Transcript started, output file is docs/evidence/windows-validation-20261006.txt
+
+2026年10月6日 11:37:30
+User confirmed new Edge InPrivate window displays 7 after container recreation.
+Browser decrement x1 and reload: 6.
+ id | value |          updated_at
+----+-------+-------------------------------
+  1 |     6 | 2026-10-06 03:37:12.285185+00
+(1 row)
+
+NAME                      IMAGE                         COMMAND                  SERVICE    CREATED         STATUS                   PORTS
+lab1-counter-backend-1    lab1-counter-backend:1.0.0    "docker-entrypoint.s…"   backend    8 minutes ago   Up 8 minutes             3000/tcp
+lab1-counter-db-1         postgres:17-alpine            "docker-entrypoint.s…"   db         8 minutes ago   Up 8 minutes (healthy)   0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp
+lab1-counter-frontend-1   lab1-counter-frontend:1.0.0   "/docker-entrypoint.…"   frontend   8 minutes ago   Up 8 minutes (healthy)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
+
+PASS: final browser refresh and database both equal 6. Functional acceptance 5.1-5.4 complete; independent InPrivate checks confirmed by user.
+
+
+**********************
+PowerShell transcript end
+End time: 20261006113731
+**********************
